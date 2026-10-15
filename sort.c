@@ -77,8 +77,12 @@ int main() {
 
     struct Student s[3];
     for (int i = 0; i < 3; i++) {
-        printf("Enter student %d (rollNo name marks): ", i + 1);
-        scanf("%d %s %f", &s[i].rollNo, s[i].name, &s[i].marks);
+        printf("Enter Roll No for student %d: ", i + 1);
+        scanf("%d", &s[i].rollNo);
+        printf("Enter Name for student %d: ", i + 1);
+        scanf("%s", s[i].name);
+        printf("Enter Marks for student %d: ", i + 1);
+        scanf("%f", &s[i].marks);
     }
 
     struct Student *ptr = &s[0];
