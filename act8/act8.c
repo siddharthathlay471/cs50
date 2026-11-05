@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,106 +7,177 @@ struct Node {
     struct Node *next;
 };
 
-void insertBeginning(struct Node **head, int value) {
-    struct Node *n = malloc(sizeof(struct Node));
-    if (n == NULL) return;
-    n->data = value;
-    n->next = *head;
-    *head = n;
-}
+struct Node *head = NULL;
 
-void insertEnd(struct Node **head, int value) {
-    struct Node *n = malloc(sizeof(struct Node));
-    if (n == NULL) return;
-    n->data = value;
-    n->next = NULL;
-    if (*head == NULL) {
-        *head = n;
+void insertBeginning(int value) {
+    struct Node *newNode = malloc(sizeof(struct Node));
+
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
         return;
     }
-    struct Node *temp = *head;
+
+    newNode->data = value;
+    newNode->next = head;
+    head = newNode;
+}
+
+void insertEnd(int value) {
+    struct Node *newNode = malloc(sizeof(struct Node));
+
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+
+    struct Node *temp = head;
+
     while (temp->next != NULL) {
         temp = temp->next;
     }
-    temp->next = n;
+
+    temp->next = newNode;
 }
 
-void display(struct Node *head) {
+void display() {
+    struct Node *temp = head;
+
     if (head == NULL) {
-        printf("NULL (empty list)\n");
+        printf("List is empty\n");
         return;
     }
-    while (head != NULL) {
-        printf("%d -> ", head->data);
-        head = head->next;
+
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
     }
+
     printf("NULL\n");
 }
 
-void search(struct Node *head, int key) {
-    int pos = 0;
-    while (head != NULL) {
-        if (head->data == key) {
-            printf("Found at position %d (0-based)\n", pos);
+void search(int value) {
+    struct Node *temp = head;
+    int position = 0;
+
+    while (temp != NULL) {
+        if (temp->data == value) {
+            printf("Found at position %d\n", position);
             return;
         }
-        head = head->next;
-        pos++;
+
+        temp = temp->next;
+        position++;
     }
+
     printf("Value not found\n");
 }
 
-void countNodes(struct Node *head) {
+void countNodes() {
+    struct Node *temp = head;
     int count = 0;
-    while (head != NULL) {
+
+    while (temp != NULL) {
         count++;
-        head = head->next;
+        temp = temp->next;
     }
-    printf("%d\n", count);
+
+    printf("Number of nodes: %d\n", count);
 }
 
-void deleteBeginning(struct Node **head) {
-    if (*head == NULL) return;
-    struct Node *temp = *head;
-    *head = (*head)->next;
+void deleteBeginning() {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    struct Node *temp = head;
+    head = head->next;
     free(temp);
 }
 
-void freeAllNodes(struct Node **head) {
+void freeAll() {
     struct Node *temp;
-    while (*head != NULL) {
-        temp = *head;
-        *head = (*head)->next;
+
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
         free(temp);
     }
 }
 
 int main() {
-    struct Node *head = NULL;
-    int choice = 0, value;
+    int choice, value;
 
-    while (choice != 7) {
-        printf("\n1.Insert End 2.Insert Beg 3.Display 4.Search 5.Count 6.Delete Beg 7.Exit\nChoice: ");
-        scanf("%d", &choice);
+    while (1) {
+        printf("\n1. Insert at beginning\n");
+        printf("2. Insert at end\n");
+        printf("3. Display\n");
+        printf("4. Search\n");
+        printf("5. Count nodes\n");
+        printf("6. Delete first node\n");
+        printf("7. Exit\n");
+        printf("Enter choice: ");
 
-        if (choice == 1) {
-            scanf("%d", &value);
-            insertEnd(&head, value);
-        } else if (choice == 2) {
-            scanf("%d", &value);
-            insertBeginning(&head, value);
-        } else if (choice == 3) {
-            display(head);
-        } else if (choice == 4) {
-            scanf("%d", &value);
-            search(head, value);
-        } else if (choice == 5) {
-            countNodes(head);
-        } else if (choice == 6) {
-            deleteBeginning(&head);
-        } else if (choice == 7) {
-            freeAllNodes(&head);
+        if (scanf("%d", &choice) != 1) {
+            freeAll();
+            return 0;
+        }
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                if (scanf("%d", &value) != 1) {
+                    freeAll();
+                    return 0;
+                }
+                insertBeginning(value);
+                break;
+
+            case 2:
+                printf("Enter value: ");
+                if (scanf("%d", &value) != 1) {
+                    freeAll();
+                    return 0;
+                }
+                insertEnd(value);
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("Enter value to search: ");
+                if (scanf("%d", &value) != 1) {
+                    freeAll();
+                    return 0;
+                }
+                search(value);
+                break;
+
+            case 5:
+                countNodes();
+                break;
+
+            case 6:
+                deleteBeginning();
+                break;
+
+            case 7:
+                freeAll();
+                printf("Exiting...\n");
+                return 0;
+
+            default:
+                printf("Invalid choice\n");
         }
     }
-    return 0;
 }
