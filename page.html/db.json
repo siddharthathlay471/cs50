@@ -1,0 +1,44 @@
+{
+  "students": [
+    {
+      "code": "STU101",
+      "name": "Rahul Sharma",
+      "course": "MCA",
+      "semester": 1,
+      "email": "rahul@example.com",
+      "city": "Ahmedabad"
+    },
+    {
+      "code": "STU102",
+      "name": "Priya Patel",
+      "course": "MCA",
+      "semester": 1,
+      "email": "priya@example.com",
+      "city": "Gandhinagar"
+    },
+    {
+      "code": "STU103",
+      "name": "Amit Verma",
+      "course": "MCA",
+      "semester": 3,
+      "email": "amit@example.com",
+      "city": "Vadodara"
+    },
+    {
+      "code": "STU104",
+      "name": "Sneha Desai",
+      "course": "MCA",
+      "semester": 3,
+      "email": "sneha@example.com",
+      "city": "Surat"
+    },
+    {
+      "code": "STU105",
+      "name": "Karan Mehta",
+      "course": "MCA",
+      "semester": 2,
+      "email": "karan@example.com",
+      "city": "Rajkot"
+    }
+  ]
+}

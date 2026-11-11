@@ -1,18 +1,22 @@
 #include <stdio.h>
 
 int main() {
-    FILE *fp = fopen("abc.txt", "w");[cite: 2]
-    int i, roll, marks;[cite: 2]
-    char name[30];[cite: 2]
-    
-    if (fp == NULL) return 1;[cite: 2]
-    
-    for (i = 1; i <= 3; i++) {[cite: 2]
-        printf("Roll Name Marks: ");[cite: 2]
-        scanf("%d %s %d", &roll, name, &marks);[cite: 2]
-        fprintf(fp, "%d %s %d\n", roll, name, marks);[cite: 2]
+    FILE *fp = fopen("abc.txt", "w");
+    int i, roll, marks;
+    char name[30];
+
+    if (fp == NULL) {
+        printf("File cannot be opened!\n");
+        return 1;
     }
-    
-    fclose(fp);[cite: 2]
+
+    for (i = 1; i <= 3; i++) {
+        printf("Roll Name Marks: ");
+        scanf("%d %29s %d", &roll, name, &marks);
+        fprintf(fp, "%d %s %d\n", roll, name, marks);
+    }
+
+    fclose(fp);
+    printf("Data successfully saved!\n");
     return 0;
 }
